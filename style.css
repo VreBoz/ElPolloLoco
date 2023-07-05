@@ -1,10 +1,186 @@
 body {
     display: flex;
+    margin: 0;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./img/sahara.jpg);
+    background-repeat: no-repeat;
+    object-fit: cover;
+    background-size: cover;
+    
+}
+
+.game-container {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+@media only screen and (max-width:720px) {
+    .game-container {
+        position: relative;
+        width: 100%;
+        padding-top: 75%; /* Seitenverhältnis 4:3 (hochgerechnet auf 100%, also 3/4 = 75%) */
+        overflow: hidden;
+    }
+    
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    h1 {
+        display: none;
+    }
+
+    #controls {
+        display: none!important;
+    }
+    
+}
+
+@media only screen and (max-height:480px) {
+    canvas {
+        height: 100vh;
+    }
+    h1 {
+        display: none;
+    }
+    #controls {
+        display:  none!important;
+    }
+}
+
+.panel1, .panel2 {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.panel1 {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    top: 0; /* Positioniert das Panel am oberen Rand des Canvas */
+    
+}
+
+.panel1 img {
+    width: 40px;
+    height: 40px;
+    margin-right: 40px;
+    margin-top: 15px;
+    border: 3px solid black;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.panel2 {   
+    position: absolute;
+    bottom: 0; /* Positioniert das Panel am unteren Rand des Canvas */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;  
+}
+.panel2 img {
+    width: 60px;
+    height: 60px;
+    
+}
+
+.jump-throw-div {
+    margin-right: 60px;
+    align-items: center;
+    display: flex;
+}
+.right-left-div {
+    margin-left: 60px;
+    align-items: center;
+    display: flex;
+}
+
+#left-button {
+    margin-right: 50px;
+}
+
+#throw-bottle {
+    width: 68px;
+    height: 68px;
+    margin-left: 50px;
+    border: 4px solid black;
+    border-radius: 50%;
+    background: red;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+button {
+    background: #b5651d;  /* Braun für einen rustikalen Look */
+    color: #fff;  /* Weißer Text */
+    border: none;  
+    border-radius: 5px;  /* Abgerundete Ecken */
+    padding: 10px 20px;  /* Polsterung um den Text */
+    font-size: 16px;  /* Schriftgröße */
+    cursor: pointer;  /* Zeigt den Mauszeiger als Hand */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  /* Fügt einen Schlagschatten hinzu */
+    transition: all 0.3s ease;  /* Animation für den Hover-Effekt */
+}
+
+button:hover {
+    background: #914e00;  /* Dunklerer Braunton beim Darüberfahren */
+}
+
+button:active {
+    transform: scale(0.95);  /* Schrumpft den Button etwas beim Klicken */
+}
+
+button:focus {
+    outline: none;  /* Entfernt den blauen Umriss beim Fokussieren */
+}
+
+#game-over {
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-canvas {
-    background-color: black;
+#game-over h1 {
+    color: #fff;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+#game-over button {
+    margin-top: 20px;
+}
+
+.d-none {
+    display: none;
+}
+
+#lost img {
+    width: 100%;
+}
+
+
+
+   
+    

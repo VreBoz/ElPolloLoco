@@ -5,22 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
+    <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
-    <script src="./models/chicken.class.js"></script>
-    <script src="./models/cloud.class.js"></script>
-    <script src="./models/background-object.class.js"></script>
-    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/throwable-object.class.js"></script>
     <script src="./models/character.class.js"></script> 
-    <script src="./models/level.class.js"></script>
+    <script src="./models/chicken.class.js"></script>
+    <script src="./models/small_chicken.class.js"></script>
+    <script src="./models/cloud.class.js"></script>
+    <script src="./models/status-bar.class.js"></script>
+    <script src="./models/coinbar.class.js"></script>
+    <script src="./models/bottlebar.class.js"></script>
     <script src="./models/world.class.js"></script> 
+    <script src="./models/background-object.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>    
+    <script src="./models/level.class.js"></script>
+    <script src="./models/endboss.class.js"></script> 
+    <script src="./models/bottle.class.js"></script>
+    <script src="./models/coin.class.js"></script>  
+    <script src="./models/endbossHealthBar.class.js"></script>  
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
 </head>
 <body onload="init()">
 
-    <head>El pollo loco</head>
-
+    <h1>El pollo loco</h1>
+<div class="game-container">
+    <div id="lost" class="d-none">
+        <img src="./img/9_intro_outro_screens/game_over/game over!.png" alt="">
+    </div>
     <canvas id="canvas" width="720px" height="480px"></canvas>
+
+    <div class="panel1">
+        <img id="play-button" src="./img/move-button/icons8-schaltfläche-_wiedergabe_-eingekreist-50.png" alt="" onclick="initLevel()">
+            <img id="mute-button" src="./img/move-button/icons8-hohe-lautstärke-50.png" alt="" >
+    </div>
+    <div class="panel2">
+        <div class="right-left-div">
+            <img id="left-button" src="./img/move-button/icons8-eingekreistes-rangabzeichen-links-64.png" alt="">
+            <img id="right-button" src="./img/move-button/icons8-eingekreistes-rangabzeichen-rechts-64.png" alt="">
+        </div>
+        <div class="jump-throw-div">
+            <img id="jump-button" src="./img/move-button/icons8-eingekreistes-rangabzeichen-oben-64.png" alt="">
+            <img id="throw-bottle" src="./img/6_salsa_bottle/salsa_bottle.png" alt="">
+        </div>
+    </div>
+</div>
+    
+    <div id="controls">
+        <button id="start-button">Start</button>
+        <button id="restart-button " class="d-none">Restart</button>
+        <button id="end-game-button">End Game</button>
+        </div>
+        <div id="game-over">
+            <h1>Game Over</h1>
+            <button id="restart-button">Restart</button>
+        </div>
+
+    </div>
     
 </body>
 </html>

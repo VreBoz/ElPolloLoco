@@ -1,36 +1,133 @@
-const level1 = new Level (
-    [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ],
-    [
-        new Cloud()
-    ],
-    [
-        new BackgroundObject('../img/5_background/layers/air.png', -719),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/2.png', -719),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/2.png', -719),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/2.png', -719),
+let level1;
+function initLevel() {
   
-        new BackgroundObject('../img/5_background/layers/air.png', 0,0),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 0),
-        new BackgroundObject('../img/5_background/layers/air.png', 719),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/2.png', 719),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/2.png', 719),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/2.png', 719),
-  
-        new BackgroundObject('../img/5_background/layers/air.png', 719*2),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/1.png', 719*2),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/1.png', 719*2),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/1.png', 719*2),
-        new BackgroundObject('../img/5_background/layers/air.png', 719*3),
-        new BackgroundObject('../img/5_background/layers/3_third_layer/2.png', 719*3),
-        new BackgroundObject('../img/5_background/layers/2_second_layer/2.png', 719*3),
-        new BackgroundObject('../img/5_background/layers/1_first_layer/2.png', 719*3),
-  
-        
-      ]
+
+
+level1 = new Level(
+  [  new Chicken(),
+     new Chicken(),
+     new Chicken(), 
+     new Chicken(),
+     new Chicken(),
+     new Chicken(),
+     new ChickenSmall, 
+     new ChickenSmall, 
+     new ChickenSmall, 
+     new ChickenSmall, 
+     new ChickenSmall, 
+     new ChickenSmall, 
+     new Endboss()],
+  [new Cloud()],
+  [
+    new BackgroundObject("../img/5_background/layers/air.png", -719),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", -719),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", -719),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", -719),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 0),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 0),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 0),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 0),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", 719),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", 719),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", 719),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719 * 2),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 719 * 2),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 719 * 2),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 719 * 2),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719 * 3),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", 719 * 3),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", 719 * 3),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", 719 * 3),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719 * 4),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 719 * 4),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 719 * 4),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 719 * 4),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719 * 5),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", 719 * 5),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", 719 * 5),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", 719 * 5),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719 * 6),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/1.png", 719 * 6),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/1.png", 719 * 6),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/1.png", 719 * 6),
+
+    new BackgroundObject("../img/5_background/layers/air.png", 719 * 7),
+    new BackgroundObject("../img/5_background/layers/3_third_layer/2.png", 719 * 7),
+    new BackgroundObject("../img/5_background/layers/2_second_layer/2.png", 719 * 7),
+    new BackgroundObject("../img/5_background/layers/1_first_layer/2.png", 719 * 7),
+],
+  [
+    new Coin(500, 350),
+    new Coin(550, 320),
+    new Coin(600, 290),
+    new Coin(650, 290),
+    new Coin(700, 320),
+    new Coin(750, 350),
+    new Coin(950, 150),
+    new Coin(1000, 150),
+    new Coin(1400, 350),
+    new Coin(1450, 320),
+    new Coin(1500, 290),
+    new Coin(1550, 290),
+    new Coin(1600, 320),
+    new Coin(1650, 350),
+    new Coin(1850, 150),
+    new Coin(1900, 150),
+    new Coin(1950, 350),
+    new Coin(2000, 320),
+    new Coin(2050, 290),
+    new Coin(2100, 290),
+    new Coin(2150, 320),
+    new Coin(2200, 350),
+    new Coin(2400, 150),
+    new Coin(2450, 150),
+    new Coin(2550, 150),
+    new Coin(2600, 350),
+    new Coin(2650, 320),
+    new Coin(2700, 290),
+    new Coin(2750, 290),
+    new Coin(2800, 320),
+    new Coin(2850, 350),
+    new Coin(2950, 150),
+    new Coin(3000, 150),
+    new Coin(3050, 350),
+    new Coin(3100, 320),
+    new Coin(3150, 290),
+    new Coin(3200, 290),
+    new Coin(3250, 320),
+    new Coin(3300, 350),
+    new Coin(3450, 150),
+    new Coin(3500, 150),
+    new Coin(3550, 350),
+    new Coin(3600, 320),
+    new Coin(3650, 290),
+    new Coin(3700, 290),
+    new Coin(3750, 320),
+    new Coin(3800, 350),
+    new Coin(3950, 150),
+    new Coin(4000, 150),
+    new Coin(4050, 150)
+    // Weitere Münzen hinzufügen...
+  ],
+  [
+    new Bottle(600, 350),
+    new Bottle(750, 350),
+    new Bottle(900, 350),
+    new Bottle(1300, 180),
+    new Bottle(1400, 150),
+    new Bottle(1900, 350),
+    new Bottle(2200, 350),
+    new Bottle(2600, 350),
+    new Bottle(2750, 350),
+    new Bottle(3500, 350),
+  ]
 );
+}
