@@ -12,6 +12,8 @@ class World {
   throwableObjects = [];
   throwableBottles = 0;
   gameOver = false;
+  chickenDead_Sound = new Audio('../audio/chicken-dead.mp3');
+
 
   constructor(canvas, keyboard) {
       this.ctx = canvas.getContext('2d'); // Holt den 2D-Kontext des Canvas-Elements und speichert ihn in der Eigenschaft "ctx"
@@ -50,27 +52,38 @@ checkThrowObjects() {
 
 checkBottleCollisionEnemy() {
     this.level.enemies.forEach((enemy, index) => {
-        this.throwableObjects.forEach((bottle, bottleIndex) => {
-            if (enemy.isColliding(bottle)) {
-                enemy.hit();
-                this.throwableObjects.splice(bottleIndex, 1);
-                console.log('Enemy getroffen');
+      this.throwableObjects.forEach((bottle, bottleIndex) => {
+        if (enemy instanceof Endboss && enemy.isColliding(bottle)) {
+          enemy.hit();
+          this.throwableObjects.splice(bottleIndex, 1);
+          console.log('Endboss getroffen');
 
-                // Gesundheit des Endbosses reduzieren um 20%
-                const currentHealth = this.endbossBar.currentHealth;
-                const newHealth = currentHealth - 20;
-                this.endbossBar.setHealth(newHealth);
+          // Gesundheit des Endbosses reduzieren um 20%
+          const currentHealth = this.endbossBar.currentHealth;
+          const newHealth = currentHealth - 20;
+          this.endbossBar.setHealth(newHealth);
 
-                if (newHealth <= 0) {
-                    setTimeout(() => {
-                        this.level.enemies.splice(index, 1);
-                        this.endbossBar.hide(); // Die Gesundheitsleiste des Endbosses ausblenden
-                    }, 2500); // Nach 2500 Millisekunden (2 Sekunden) ausführen
-                }
-            }
-        });
+          if (newHealth <= 0) {
+            setTimeout(() => {
+              this.level.enemies.splice(index, 1);
+              this.endbossBar.hide(); // Die Gesundheitsleiste des Endbosses ausblenden
+            }, 2500); // Nach 2500 Millisekunden (2 Sekunden) ausführen
+          }
+        } else if (!(enemy instanceof Endboss) && enemy.isColliding(bottle)) {
+          enemy.die();
+          // Hier wird überprüft, ob das getötete Objekt ein Huhn ist, und wenn ja, wird der Ton abgespielt.
+          if(enemy instanceof Chicken){
+            this.chickenDead_Sound.play();
+          }
+          setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+          }, 150);
+          this.throwableObjects.splice(bottleIndex, 1);
+          console.log('Gegner getroffen');
+        }
+      });
     });
-}
+  }
 
 
 
@@ -80,18 +93,30 @@ checkBottleCollisionEnemy() {
   checkCollisions() {
     this.level.enemies.forEach((enemy, index) => {
       if (this.character.isColliding(enemy)) {
-        if (!this.character.isAboveGround()) {
+        if (this.character.isAboveGround()) {
+          console.log('Jumped on enemy');
+          
+          // Überprüfung, ob der Feind der Endboss ist
+          if (enemy instanceof Endboss) {
+            // Der Charakter ist auf den Endboss gesprungen und soll schaden bekommen 
+            this.character.hit();
+            console.log('Jumped on Endboss');
+            // Fügen Sie hier Ihren Code für den Sprung auf den Endboss ein
+          } else {
+            // Hier wird überprüft, ob das getötete Objekt ein Huhn ist, und wenn ja, wird der Ton abgespielt.
+            if (enemy instanceof Chicken) {
+              enemy.die();
+              this.chickenDead_Sound.play();
+            }
+            setTimeout(() => {
+              this.level.enemies.splice(index, 1);
+            }, 150);
+          }
+        } else {
           console.log('Collision with Character, energy', this.character.energy);
-          this.character.hurt_sound.play(); // Spielt den Sound ab
+          this.character.hurt_sound.play();
           this.character.hit();
           this.statusBar.setPercentage(this.character.energy);
-        } else if (this.character.isAboveGround() + 60) {
-          console.log('above the ground');
-          enemy.die(); // Das Huhn stirbt
-          // Nach einer gewissen Zeit (z.B. 500ms) das tote Huhn entfernen
-          setTimeout(() => {
-            this.level.enemies.splice(index, 1);
-          }, 250);
         }
       }
     });
@@ -207,9 +232,20 @@ checkBottleCollisionEnemy() {
   
 
   checkGameOver() {
-    if (this.character.energy <= 0 || this.level.enemies.length === 0 || (this.level.enemies.length === 1 && this.level.enemies[0] instanceof Endboss && this.level.enemies[0].isDead)) {
-        lostOutroscreen();
+    if (this.character.energy <= 0 || this.endbossBar.currentHealth <= 0) {
         this.gameOver = true;
+
+        if (this.endbossBar.currentHealth <= 0) {
+            setTimeout(() => {
+                winOutroscreen();
+                this.gameOver = true;
+            }, 600);
+        } else {
+            setTimeout(() => {
+                lostOutroscreen();
+                this.gameOver = true;
+            }, 400);
+        }
     }
 }
 }

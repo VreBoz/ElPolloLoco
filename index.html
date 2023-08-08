@@ -28,39 +28,69 @@
 </head>
 <body onload="init()">
 
+    
+
     <h1>El pollo loco</h1>
-<div class="game-container">
+<div id="game-container" class="game-container">
+    <button id="restart-btn" class="d-none" onclick="restart()">Restart</button>
     <div id="lost" class="d-none">
+        <img src="./img/9_intro_outro_screens/game_over/you lost.png" alt="">
+    </div>
+    <div id="win" class="d-none">
         <img src="./img/9_intro_outro_screens/game_over/game over!.png" alt="">
     </div>
     <canvas id="canvas" width="720px" height="480px"></canvas>
 
     <div class="panel1">
-        <img id="play-button" src="./img/move-button/icons8-schaltfläche-_wiedergabe_-eingekreist-50.png" alt="" onclick="initLevel()">
-            <img id="mute-button" src="./img/move-button/icons8-hohe-lautstärke-50.png" alt="" >
+        <button id="play-button" onclick="initLevel()"></button>
+        <button id="mute-button"></button>
+        <button id="fullscreen" onclick="toggleFullscreen();"></button>
+        
     </div>
+
+    <div id="how-to-play" onclick="expandHowToPlay()">
+        <h3>How to Play !</h3>
+    </div>
+
+    <div class="introduction">
+        <div class="introduction-div">
+          <p class="mg-20">Left =</p>
+          <div class="key left-key">&larr;</div>
+        </div>
+        <div class="introduction-div">
+          <p class="mg-20">Right = </p>
+          <div class="key right-key">&rarr;</div>
+        </div>
+        <div class="introduction-div">
+          <p class="mg-20">Jump =</p>
+          <div class="key up-key">&uarr;</div>
+        </div>
+        <div class="introduction-div">
+          <p class="mg-20">Throw-bottle = </p>
+          <div class="key d-key">D</div>
+        </div>
+      </div>
+
+    <div id="turn-device">
+        <img src="./img/move-button/rotate.png" alt="">
+    </div>
+
     <div class="panel2">
         <div class="right-left-div">
-            <img id="left-button" src="./img/move-button/icons8-eingekreistes-rangabzeichen-links-64.png" alt="">
-            <img id="right-button" src="./img/move-button/icons8-eingekreistes-rangabzeichen-rechts-64.png" alt="">
+            <button id="left-button"></button>
+            <button id="right-button"></button>
         </div>
+
         <div class="jump-throw-div">
-            <img id="jump-button" src="./img/move-button/icons8-eingekreistes-rangabzeichen-oben-64.png" alt="">
-            <img id="throw-bottle" src="./img/6_salsa_bottle/salsa_bottle.png" alt="">
+            <button id="jump-button"></button>
+            <button id="throw-bottle"></button>
         </div>
     </div>
 </div>
     
     <div id="controls">
         <button id="start-button">Start</button>
-        <button id="restart-button " class="d-none">Restart</button>
-        <button id="end-game-button">End Game</button>
-        </div>
-        <div id="game-over">
-            <h1>Game Over</h1>
-            <button id="restart-button">Restart</button>
-        </div>
-
+        
     </div>
     
 </body>

@@ -3,6 +3,12 @@ class Endboss extends MovableObject {
     width = 280;
     y = 0;
     energy = 100;
+    offset = {
+        top: 90,
+        left: 20,
+        right: 15,
+        bottom: 15 
+    };
 
     IMAGES_WALKING = [
         '/img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -38,20 +44,20 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        setInterval(() => {
-            if (!this.isDead) {  // Nur wenn der Endboss nicht tot ist
-                if (this.isHurt()) {  // Wenn der Endboss in der letzten Sekunde getroffen wurde
-                    this.playAnimation(this.IMAGES_HURT);  // Spielen Sie die Hurt-Animation ab
+        this.interval = setInterval(() => {
+            if (!this.isDead) {
+                if (this.isHurt()) {
+                    this.playAnimation(this.IMAGES_HURT, false);
                 } else {
-                    this.playAnimation(this.IMAGES_WALKING);  // Andernfalls spielen Sie die Walking-Animation ab
+                    this.playAnimation(this.IMAGES_WALKING, true);
                 }
             } else {
-                this.playAnimation(this.IMAGES_DEAD);  // Wenn der Endboss tot ist, spielen Sie die Death-Animation ab
-                if(this.currentImage === this.IMAGES_DEAD.length) {
+                this.playAnimation(this.IMAGES_DEAD, false);
+                if (this.currentImage === this.IMAGES_DEAD.length - 1) {
                     clearInterval(this.interval);
                 }
             }
-        }, 200);  // Aktualisieren Sie die Animation alle 200 Millisekunden
+        }, 200);
     }
 
     hit() {
@@ -82,10 +88,6 @@ class Endboss extends MovableObject {
                 if (this.world && this.world.endbossBar) {
                     this.world.endbossBar.hide(); 
     
-                    // Zeigt nach 2 Sekunden einen Gewinner-Alert an
-                    setTimeout(() => {
-                        alert('Du hast gewonnen!');
-                    }, 2000);
                 }
             }
         }, 100); // 500 Millisekunden Verzögerung zwischen den Bildern

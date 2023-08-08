@@ -38,8 +38,8 @@ class DrawableObject {
         ) {
             // Überprüfe, ob das Objekt vom Typ Character, Chicken oder Endboss ist
             ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = '3';
+            ctx.strokeStyle = 'transparent';
             let frame = this.getBoundingRectangle(); // Get frame using getBoundingRectangle method
             ctx.rect(frame.x, frame.y, frame.width, frame.height); // Zeichne ein Rechteck um das Objekt
             ctx.stroke();

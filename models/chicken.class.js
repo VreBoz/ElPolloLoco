@@ -17,7 +17,7 @@ class Chicken extends MovableObject{
     super().loadImage('../img/3_enemies_chicken/chicken_normal/1_walk/1_w.png')
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);  // Laden der Todesbilder
-    this.x = 300 + Math.random() * 4000 ;
+    this.x = 700 + Math.random() * 4000 ;
     this.speed = 0.1 + Math.random() * 0.9;
     this.animate();
     }
@@ -29,7 +29,7 @@ class Chicken extends MovableObject{
     
         setInterval(() => {
             if (!this.isDead) { // Überprüfe ob das Huhn nicht tot ist
-                this.playAnimation(this.IMAGES_WALKING);
+                this.playAnimation(this.IMAGES_WALKING, true);
             }
         }, 200);      
     }
@@ -40,5 +40,6 @@ class Chicken extends MovableObject{
    die() {
     this.isDead = true; // Setzt den Zustand des Huhns auf "tot"
     this.playAnimation(this.IMAGES_DEAD); // Spielt die Todesanimation ab (das entsprechende Bild)
+    this.chickenDead_Sound.play();
 }
 }

@@ -9,19 +9,30 @@ body {
     background-repeat: no-repeat;
     object-fit: cover;
     background-size: cover;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    
     
 }
 
 .game-container {
     position: relative;
-    width: 720px;
-    height: 480px;
+    max-width: 720px; /* Maximale Breite des Spiels */
+    margin: 0 auto; /* Zentriert das Spiel */
+    width: 100%; /* Nimmt die volle Breite des Bildschirms ein */
 }
 
 canvas {
     width: 100%;
     height: 100%;
     background-color: black;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 640px) {
+    .game-container {
+        width: 100%; /* Auf kleineren Bildschirmen nimmt das Spiel die volle Breite ein */
+    }
 }
 
 @media only screen and (max-width:720px) {
@@ -61,11 +72,13 @@ canvas {
     }
 }
 
-.panel1, .panel2 {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+
+
+.panel1 button, .panel2 button {
+    border-radius: 50%; /* Dies macht die Buttons rund */
+    width: 50px;
+    height: 50px;
+    margin: 10px;
 }
 
 .panel1 {
@@ -91,7 +104,7 @@ canvas {
     position: absolute;
     bottom: 0; /* Positioniert das Panel am unteren Rand des Canvas */
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: space-between;  
 }
 .panel2 img {
@@ -111,18 +124,56 @@ canvas {
     display: flex;
 }
 
+@media only screen and (max-width: 720px), only screen and (max-height: 480px) {
+    .panel2 {
+        display: flex; /* Zeigt die Buttons auf kleineren Bildschirmen an */
+    }
+}
+
+
+
+#play-button {
+    background-image: url('./img/move-button/icons8-schaltfläche-_wiedergabe_-eingekreist-50.png');
+    background-size: cover;
+}
+
+#mute-button {
+    background-image: url('./img/move-button/icons8-hohe-lautstärke-50.png');
+    background-size: cover;
+}
+
 #left-button {
+    background-image: url('./img/move-button/icons8-eingekreistes-rangabzeichen-links-64.png');
+    background-size: cover;
     margin-right: 50px;
 }
 
-#throw-bottle {
-    width: 68px;
-    height: 68px;
-    margin-left: 50px;
-    border: 4px solid black;
-    border-radius: 50%;
-    background: red;
+#right-button {
+    background-image: url('./img/move-button/icons8-eingekreistes-rangabzeichen-rechts-64.png');
+    background-size: cover;
 }
+
+#jump-button {
+    background-image: url('./img/move-button/icons8-eingekreistes-rangabzeichen-oben-64.png');
+    background-size: cover;
+}
+
+#throw-bottle {
+    background-image: url('./img/6_salsa_bottle/salsa_bottle.png');
+    background-size: cover;
+    margin-left: 50px;
+    width: 70px;
+    height: 70px;
+    border: 3px solid black;
+
+}
+
+#fullscreen {
+    background-image: url('./img/move-button/fullback.png');
+    background-size: cover;
+}
+
+
 
 #controls {
     display: flex;
@@ -132,7 +183,7 @@ canvas {
 }
 
 button {
-    background: #b5651d;  /* Braun für einen rustikalen Look */
+    background: rgba(146, 96, 52, 0.5);  /* Braun für einen rustikalen Look */
     color: #fff;  /* Weißer Text */
     border: none;  
     border-radius: 5px;  /* Abgerundete Ecken */
@@ -141,6 +192,8 @@ button {
     cursor: pointer;  /* Zeigt den Mauszeiger als Hand */
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  /* Fügt einen Schlagschatten hinzu */
     transition: all 0.3s ease;  /* Animation für den Hover-Effekt */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
 }
 
 button:hover {
@@ -179,8 +232,112 @@ button:focus {
 #lost img {
     width: 100%;
 }
+#win img {
+    width: 100%;
+}
 
-
-
-   
+#restart-btn {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
+}
+
+#turn-device {
+    background-color: rgba(255, 255, 255, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    
+
+}
+#turn-device img {
+    width: 50%;
+    
+}
+
+.introduction {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    bottom: 0;
+    background-color: rgba(146, 96, 52, 0.9);
+    font-size: 17.5px;
+    width: 100%;
+    height: 60px;
+}
+
+.introduction-div {
+    display: flex;
+    align-items: center;
+    
+    
+}
+
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: #000;
+    border: 1px solid #999;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff; /* Textfarbe auf Weiß setzen */
+  }
+  
+  .d-key {
+    font-weight: bold;
+  }
+
+  .mg-20 {
+    margin-right: 10px;
+    
+  }
+
+  #how-to-play {
+    position: absolute;
+    max-width: 720px;
+    border: 2px solid black;
+    top: 0;
+    background-color: rgba(146, 96, 52, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 50px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+#how-to-play.expanded {
+    max-height: 800px; /* Diese Höhe sollte so eingestellt werden, dass sie alle Inhalte aufnehmen kann, wenn das Element erweitert ist */
+    transition: max-height 1s ease-in;
+}
+
+#how-to-play h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#how-to-play ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+    
+}
+
+#how-to-play li {
+    margin-bottom: 5px;
+    font-size: 12px;
+    line-height: 1.4;
+}

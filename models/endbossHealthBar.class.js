@@ -1,11 +1,12 @@
 class EndbossHealthBar extends DrawableObject {
   IMAGES = [
-      'img/7_statusbars/2_statusbar_endboss/boss_0.png',
-      'img/7_statusbars/2_statusbar_endboss/boss_20.svg',
-      'img/7_statusbars/2_statusbar_endboss/boss_40.svg',
-      'img/7_statusbars/2_statusbar_endboss/boss_60.svg',
-      'img/7_statusbars/2_statusbar_endboss/boss_80.svg',
-      'img/7_statusbars/2_statusbar_endboss/boss_100.svg',
+      'img/7_statusbars/2_statusbar_endboss/blue/blue0.png',
+      'img/7_statusbars/2_statusbar_endboss/blue/blue20.png',
+      'img/7_statusbars/2_statusbar_endboss/blue/blue40.png',
+      'img/7_statusbars/2_statusbar_endboss/blue/blue60.png',
+      'img/7_statusbars/2_statusbar_endboss/blue/blue80.png',
+      'img/7_statusbars/2_statusbar_endboss/blue/blue100.png'
+      
   ];
 
   currentHealth = 100;
@@ -37,13 +38,13 @@ class EndbossHealthBar extends DrawableObject {
       // Ermittelt den Index des aktuellen Bildes basierend auf der Gesundheit
       if (this.currentHealth == 100) {
           return 5;
-      } else if (this.currentHealth > 80) {
+      } else if (this.currentHealth > 79) {
           return 4;
-      } else if (this.currentHealth > 60) {
+      } else if (this.currentHealth > 59) {
           return 3;
-      } else if (this.currentHealth > 40) {
+      } else if (this.currentHealth > 39) {
           return 2;
-      } else if (this.currentHealth > 20) {
+      } else if (this.currentHealth > 19) {
           return 1;
       } else {
           return 0;

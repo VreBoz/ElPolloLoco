@@ -85,13 +85,15 @@ class MovableObject extends DrawableObject {
      */
     
 
-    playAnimation(images) {
-        // Funktion zum Abspielen einer Animation
-        let i = this.currentImage % images.length; // Berechne den Index des aktuellen Bildes basierend auf dem Rest der Division
-        let path = images[i]; // Hole den Pfad des aktuellen Bildes
-        this.img = this.imageCache[path]; // Setze das aktuelle Bild basierend auf dem Pfad aus dem Zwischenspeicher
-        this.currentImage++; // Inkrementiere den Index des aktuellen Bildes für das nächste Mal
+    playAnimation(images, shouldLoop) {
+    let i = this.currentImage % images.length;
+    let path = images[i];
+    this.img = this.imageCache[path];
+
+    if (shouldLoop || i < images.length - 1) { // Überprüfen, ob die Animation wiederholt werden sollte oder ob das aktuelle Bild nicht das letzte ist
+        this.currentImage++;
     }
+}
 
     moveRight() {
         // Funktion zum Bewegen nach rechts
@@ -106,7 +108,8 @@ class MovableObject extends DrawableObject {
 
     jump() {
         // Funktion zum Springen
-        this.speedY = 20; // Setze die vertikale Geschwindigkeit auf einen positiven Wert, um das Objekt nach oben zu bewegen
+        this.speedY = 15; // Verringern Sie die vertikale Geschwindigkeit, um den Sprung zu verringern
+        this.acceleration = 1.0; // Verringern Sie die Beschleunigung, um die Aufwärtsbewegung langsamer zu machen
     }
 }
  //write a setInterval 

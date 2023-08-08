@@ -18,14 +18,120 @@ let jumpButton;
 let throwBottle;
 
 // Funktionen
+
+// Bereitstellen des Codes, wenn das Dokument geladen wurde
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Referenz auf das turn-device-Element
+    let turnDeviceElement = document.querySelector('#turn-device');
+
+    // Funktion zum Überprüfen der Bildschirmausrichtung und der Breite
+    function checkOrientation() {
+        // Wenn die Ausrichtung Querformat ist und die Breite größer oder gleich 720px ist
+        if (window.screen.orientation.type.includes('landscape') && window.innerWidth >= 620) {
+            turnDeviceElement.style.display = 'none';
+        } else {
+            turnDeviceElement.style.display = 'flex';
+        }
+    }
+
+    // Überprüfen der Bildschirmausrichtung und der Breite, wenn das Fenster geladen oder die Größe geändert wird
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+});
+
+function fullscreen() {
+    const element = document.documentElement; // Änderung hier
+  
+    if (element) {
+      enterFullscreen(element);
+    }
+}
+
+function enterFullscreen(element) {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+}
+
+function toggleFullscreen() {
+    const canvas = document.getElementById("game-container");
+
+    if (document.fullscreenElement) {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    } else {
+        // Enter fullscreen
+        if (canvas.requestFullscreen) {
+            canvas.requestFullscreen();
+        }
+    }
+}
+  
+  
+
+
+function expandHowToPlay() {
+    const howToPlay = document.getElementById('how-to-play');
+    howToPlay.classList.add('expanded');
+    howToPlay.innerHTML = `
+        <button id="close-button" onclick="closeHowToPlay(event)">X</button>
+        <h3>How to Play !</h3>
+        <ol>
+            <li>Goal: Your objective is to defeat the Endboss.</li>
+            <li>Enemies: You will encounter Chickens as your enemies.</li>
+            <li>Defeating Enemies: Jump on the Chickens to defeat them.</li>
+            <li>Collecting Items: Gather coins and bottles to earn points and enhance your defense.</li>
+            <li>Attacking the Endboss: Once you have enough bottles, you can attack the Endboss.</li>
+            <li>Endboss Battle: Throw bottles at the Endboss to reduce its health.</li>
+            <li>Watch Your Health: Avoid getting hit by the Chickens, as it will decrease your health.</li>
+            <li>Repeat and Win: Keep repeating the process until you defeat the Endboss.</li>
+        </ol>`;
+}
+
+function closeHowToPlay(event) {
+    event.stopPropagation();
+    const howToPlay = document.getElementById('how-to-play');
+    howToPlay.classList.remove('expanded');
+    howToPlay.innerHTML = `<h3 onclick="expandHowToPlay()">How to Play !</h3>`;
+}
+
+function toggleGameInstructions(isVisible) {
+    const howToPlay = document.getElementById('how-to-play');
+    const introduction = document.querySelector('.introduction');
+    
+    if (isVisible) {
+        howToPlay.style.display = 'block';
+        introduction.style.display = 'block';
+    } else {
+        howToPlay.style.display = 'none';
+        introduction.style.display = 'none';
+    }
+}
+
 function toggleMute() {
     if (themeSound.volume > 0) {
         themeSound.volume = 0;
-        muteButton.src = '../img/move-button/icons8-lautlos-50.png';
+        muteButton.style.backgroundImage = "url('../img/move-button/icons8-lautlos-50.png')";
     } else {
         themeSound.volume = 0.5;
-        muteButton.src = '../img/move-button/icons8-hohe-lautstärke-50.png';
+        muteButton.style.backgroundImage = "url('../img/move-button/icons8-hohe-lautstärke-50.png')";
     }
+    muteButton.style.backgroundSize = 'cover';
 }
 
 function handleKeyDown(e) {
@@ -38,7 +144,7 @@ function handleKeyDown(e) {
     } else if (e.keyCode === 40) {
         keyboard.DOWN = true;
     } else if (e.keyCode === 32) {
-        keyboard.SPACE = true;
+        keyboard.UP = true;
     } else if (e.keyCode === 68) {
         keyboard.D = true;
     }
@@ -54,7 +160,7 @@ function handleKeyUp(e) {
     } else if (e.keyCode === 40) {
         keyboard.DOWN = false;
     } else if (e.keyCode === 32) {
-        keyboard.SPACE = false;
+        keyboard.UP = false;
     } else if (e.keyCode === 68) {
         keyboard.D = false;
     }
@@ -78,14 +184,55 @@ function hidePlayButton() {
 function lostOutroscreen() {
     const canvas = document.getElementById('canvas');
     const lostScreen = document.getElementById('lost');
-    const restartButton = document.querySelector('#restart-button');
+    const restartButton = document.querySelector('#restart-btn');
 
     canvas.classList.add('d-none');
     lostScreen.classList.remove('d-none');
     restartButton.classList.remove('d-none');
+    stopGame();
 }
 
+function winOutroscreen() {
+    const canvas = document.getElementById('canvas');
+    const winScreen = document.getElementById('win');
+    const restartButton = document.querySelector('#restart-btn');
+
+    canvas.classList.add('d-none');
+    winScreen.classList.remove('d-none');
+    restartButton.classList.remove('d-none');
+    stopGame();
+}
+
+// a function that reload the page when the restart button is clicked and add a eventlistener to the restart button
+
+function restart() {
+    window.location.reload();
+}
+
+
+
+
+
+
+
+
+
+function stopGame() {
+    themeSound.pause();
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+}
+
+// ...
+
+// Button "End Game" hinzufügen
+
+
 function init() {
+    window.addEventListener('contextmenu', function (e) { 
+        e.preventDefault(); 
+      }, false);
     // Canvas
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
@@ -106,6 +253,7 @@ function init() {
         world = new World(canvas, keyboard);
         hidePlayButton();
         themeSound.play();
+        toggleGameInstructions(false);
     });
 
     // Start Button
@@ -116,6 +264,7 @@ function init() {
         world = new World(canvas, keyboard);
         hidePlayButton();
         themeSound.play();
+        toggleGameInstructions(false);  
     });
 
     // Mute Button
@@ -134,12 +283,12 @@ function init() {
 
     handleButtonTouchStart(leftButton, 'LEFT');
     handleButtonTouchStart(rightButton, 'RIGHT');
-    handleButtonTouchStart(jumpButton, 'SPACE');
+    handleButtonTouchStart(jumpButton, 'UP');
     handleButtonTouchStart(throwBottle, 'D');
 
     handleButtonMouseDown(leftButton, 'LEFT');
     handleButtonMouseDown(rightButton, 'RIGHT');
-    handleButtonMouseDown(jumpButton, 'SPACE');
+    handleButtonMouseDown(jumpButton, 'UP');
     handleButtonMouseDown(throwBottle, 'D');
 
     // Weitere Initialisierungen und Event-Listener...
