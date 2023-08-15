@@ -12,7 +12,7 @@ class World {
   throwableObjects = [];
   throwableBottles = 0;
   gameOver = false;
-  chickenDead_Sound = new Audio('../audio/chicken-dead.mp3');
+  chickenDead_Sound = new Audio('./audio/chicken-dead.mp3');
 
 
   constructor(canvas, keyboard) {
@@ -23,6 +23,12 @@ class World {
       this.setWorld(); // Ruft die Methode "setWorld" auf, um die Verbindung zwischen World und Character herzustellen
       this.run();
   }
+
+  toggleMute() {
+    this.muted = !this.muted;
+
+    this.chickenDead_Sound.muted = this.muted;
+}
 
   setWorld() {
       this.character.world = this; // Setzt die Eigenschaft "world" des Characters auf die aktuelle World-Instanz
@@ -42,12 +48,13 @@ class World {
 
 
 checkThrowObjects() {
-    if (this.keyboard.D && this.throwableBottles > 0) {
-        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-        this.throwableObjects.push(bottle);
-        this.throwableBottles--;
-        this.bottleBar.setBottles(this.throwableBottles); // Aktualisieren Sie die Anzahl der Flaschen in der Flaschenleiste
-    }
+  if (this.keyboard.D && this.throwableBottles > 0) {
+      // Übergabe von "this" (die aktuelle World-Instanz) an den Konstruktor von ThrowableObject
+      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this);
+      this.throwableObjects.push(bottle);
+      this.throwableBottles--;
+      this.bottleBar.setBottles(this.throwableBottles); // Aktualisieren Sie die Anzahl der Flaschen in der Flaschenleiste
+  }
 }
 
 checkBottleCollisionEnemy() {

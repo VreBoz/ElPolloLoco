@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY; // Aktualisiere die y-Koordinate basierend auf der vertikalen Geschwindigkeit
                 this.speedY -= this.acceleration; // Verringere die vertikale Geschwindigkeit basierend auf der Beschleunigung
             }
-        }, 1000 / 25); // Aktualisiere alle 25 Millisekunden
+        }, 1000 / 40); // Aktualisiere alle 25 Millisekunden
     }
 
     isAboveGround() {
@@ -111,6 +111,13 @@ class MovableObject extends DrawableObject {
         this.speedY = 15; // Verringern Sie die vertikale Geschwindigkeit, um den Sprung zu verringern
         this.acceleration = 1.0; // Verringern Sie die Beschleunigung, um die Aufwärtsbewegung langsamer zu machen
     }
+
+    attackEndBoss() {
+        setInterval(() => {
+          this.x -= 0.20;
+        }, 1000 / 60);
+        
+      }
 }
  //write a setInterval 
 

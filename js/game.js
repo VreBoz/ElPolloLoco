@@ -4,9 +4,10 @@ let ctx;
 let world;
 let keyboard = new Keyboard();
 let gameStarted = false;
+let isMuted = false;
 
 // Audio
-let themeSound = new Audio('../audio/game-theme.mp3');
+let themeSound = new Audio('./audio/game-theme.mp3');
 themeSound.volume = 0.5;
 
 // Elemente
@@ -124,14 +125,22 @@ function toggleGameInstructions(isVisible) {
 }
 
 function toggleMute() {
-    if (themeSound.volume > 0) {
-        themeSound.volume = 0;
-        muteButton.style.backgroundImage = "url('../img/move-button/icons8-lautlos-50.png')";
-    } else {
-        themeSound.volume = 0.5;
-        muteButton.style.backgroundImage = "url('../img/move-button/icons8-hohe-lautstärke-50.png')";
-    }
+    isMuted = !isMuted; // Umschalten des Mute-Status
+    
+    themeSound.volume = isMuted ? 0 : 0.5;
+    
+    muteButton.style.backgroundImage = isMuted 
+        ? "url('./img/move-button/icons8-lautlos-50.png')"
+        : "url('./img/move-button/icons8-hohe-lautstärke-50.png')";
     muteButton.style.backgroundSize = 'cover';
+
+    // Stummschalten der Charakter-Sounds 
+    if (world && world.character) {
+        world.character.toggleMute();
+        world.toggleMute();
+    }
+
+    
 }
 
 function handleKeyDown(e) {
@@ -239,7 +248,7 @@ function init() {
 
     // Startbild
     let startImage = new Image();
-    startImage.src = 'img/9_intro_outro_screens/start/startscreen_1.png';
+    startImage.src = './img/9_intro_outro_screens/start/startscreen_1.png';
     startImage.onload = function() {
         ctx.drawImage(startImage, 0, 0, canvas.width, canvas.height);
     }

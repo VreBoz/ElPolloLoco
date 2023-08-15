@@ -35,11 +35,11 @@ canvas {
     }
 }
 
-@media only screen and (max-width:720px) {
+/* @media only screen and (max-width:720px) {
     .game-container {
         position: relative;
         width: 100%;
-        padding-top: 75%; /* Seitenverhältnis 4:3 (hochgerechnet auf 100%, also 3/4 = 75%) */
+        padding-top: 75%; 
         overflow: hidden;
     }
     
@@ -58,11 +58,13 @@ canvas {
         display: none!important;
     }
     
-}
+} */
 
 @media only screen and (max-height:480px) {
+    
     canvas {
         height: 100vh;
+        
     }
     h1 {
         display: none;
@@ -127,6 +129,15 @@ canvas {
 @media only screen and (max-width: 720px), only screen and (max-height: 480px) {
     .panel2 {
         display: flex; /* Zeigt die Buttons auf kleineren Bildschirmen an */
+    }
+    .introduction {
+        display: none!important;
+    }
+}
+
+@media(min-width: 200px) {
+    .introduction {
+        display: none;
     }
 }
 

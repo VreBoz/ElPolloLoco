@@ -15,36 +15,51 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png'
     ];
 
-    constructor(x, y){
-        super().loadImage('../img/6_salsa_bottle/salsa_bottle.png');
+    constructor(x, y, world){
+        super().loadImage('./img/6_salsa_bottle/salsa_bottle.png');
         this.x = x;
         this.y = y;
         this.height = 70;
         this.width = 60;
+        this.world = world;
         this.throw();
+        
 
     }
 
     throw() {
         this.speedY = 23;
         this.applyGravity();
-
-        let rotationIndex = 0; // Index für die Rotation der Flasche
+    
+        let rotationIndex = 0; 
         let rotationInterval = setInterval(() => {
-            // Animation für die Rotation der Flasche
             this.loadImage(this.IMAGES_BOTTLE_ROTATE[rotationIndex]);
             rotationIndex++;
             if (rotationIndex >= this.IMAGES_BOTTLE_ROTATE.length) {
                 rotationIndex = 0;
             }
         }, 100);
-
+    
         setInterval(() => {
             this.x += 7;
         }, 25);
-
+    
         setTimeout(() => {
-            clearInterval(rotationInterval); // Stoppt die Rotation der Flasche nach einer bestimmten Zeit
+            clearInterval(rotationInterval);
         }, 2000);
+        console.log("Inside throw method, World object:", this.world);
+        console.log("Throw was called");
+        console.log("World object:", this.world);
+        console.log("Character of world:", this.world.character);
+
+        if (this.world && this.world.character) {
+            this.world.character.stopIdleAnimation();
+        } else {
+            console.log("Either world or character is not defined.");
+        }
+    
+        
     }
+
+    
 }
